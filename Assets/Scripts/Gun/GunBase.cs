@@ -9,7 +9,6 @@ public class GunBase : MonoBehaviour
    public Transform positionToShoot;
    public float timeBetweenShoot = .3f;
    public float speed = 50f;
-   public float damageAmount = 5f;
 
    private Coroutine _currentCoroutine;
 
@@ -28,16 +27,6 @@ public class GunBase : MonoBehaviour
 	   projectile.transform.position = positionToShoot.position;
 	   projectile.transform.rotation = positionToShoot.rotation;
 	   projectile.speed = speed;
-
-	   RaycastHit hit;
-       if (Physics.Raycast(positionToShoot.position, positionToShoot.forward, out hit))
-       {
-            IDamageable damageable = hit.collider.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.OnDamage(damageAmount);
-            }
-       }	
    }
 
    public void StartShoot()

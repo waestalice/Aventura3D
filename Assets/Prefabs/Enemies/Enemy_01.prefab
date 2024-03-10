@@ -4909,9 +4909,10 @@ GameObject:
   - component: {fileID: 2522855991200989919}
   - component: {fileID: 6139302968709690498}
   - component: {fileID: 9126107420349022697}
+  - component: {fileID: 7827380758293095218}
   m_Layer: 0
   m_Name: Enemy_01
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4948,6 +4949,7 @@ MonoBehaviour:
   flashColor: {fileID: 8779664354494310313}
   particleSystem: {fileID: 4651807784705013136}
   startLife: 10
+  lookAtPlayer: 0
   _currentLife: 0
   _animationBase: {fileID: 9126107420349022697}
   startAnimationDuration: 0.2
@@ -4972,8 +4974,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.6, y: 4.03, z: 3}
-  m_Center: {x: 0.23, y: 0, z: 0.27}
+  m_Size: {x: 3.59, y: 4.46, z: 3}
+  m_Center: {x: 0, y: 1.7, z: 0}
 --- !u!114 &9126107420349022697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4996,6 +4998,33 @@ MonoBehaviour:
     trigger: Attack
   - animationType: 4
     trigger: Death
+--- !u!54 &7827380758293095218
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355195875551380555}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &8608241551683903837
 GameObject:
   m_ObjectHideFlags: 0
@@ -5022,7 +5051,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3335175457477605636}
@@ -5063,7 +5092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8115776127002297597, guid: 86dc2d7519f0fa047a4a9adbc81a8da7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.6099997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8115776127002297597, guid: 86dc2d7519f0fa047a4a9adbc81a8da7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5142,5 +5171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 7386933946674923279}
+  skinnedMeshRenderer: {fileID: 0}
   color: {r: 0.7798742, g: 0.25260064, b: 0.25260064, a: 1}
   duration: 0.1
