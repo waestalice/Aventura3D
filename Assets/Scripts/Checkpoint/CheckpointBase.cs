@@ -10,6 +10,13 @@ public class CheckpointBase : MonoBehaviour
 	private bool checkpointActived = false;
 	private string checkpointKey = "checkpointKey";
 
+	private CheckpointUI checkpointUI;
+
+	private void Start()
+	{
+		checkpointUI = FindObjectOfType<CheckpointUI>();
+	}
+
 	private void OnTriggerEnter(Collider other)
 	{
 		if (!checkpointActived && other.transform.tag == "Player")
@@ -22,6 +29,8 @@ public class CheckpointBase : MonoBehaviour
 	{
 		TurnItOn();
 		SaveCheckpoint();
+
+		checkpointUI.ShowCheckpointMessage();
 	}
 
 	[NaughtyAttributes.Button]
