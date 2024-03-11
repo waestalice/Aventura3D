@@ -33,19 +33,19 @@ namespace Boss
 
 		private StateMachine<BossAction> stateMachine;
 
-		[Header("Boss Properties")]
-		public Renderer bossRenderer;
-
-		private void Start()
+		private void OnValidate()
 		{
-			Init();
-			bossRenderer.enabled = false;
+			if (healthBase == null) healthBase = GetComponent<HealthBase>();
 		}
 
 		private void Awake()
 		{
 			Init();
-			healthBase.OnKill += OnBossKill;
+			OnValidate();
+			if(healthBase != null)
+			{
+				healthBase.OnKill += OnBossKill;
+			}
 		}
 
 		private void Init()
@@ -134,12 +134,5 @@ namespace Boss
 			stateMachine.SwitchState(state, this);
 		}
 		#endregion
-
-		public void StartBossEncounter()
-		{
-			if (!bossRenderer.enabled)
-			{
-				bossRenderer.enabled = true;
-			}
-	}	}
+	}
 }

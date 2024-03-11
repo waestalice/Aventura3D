@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour//, IDamageable
 {
+   public List<Collider> colliders;
    public Animator animator; 	
 
    public CharacterController characterController;
@@ -23,15 +24,61 @@ public class Player : MonoBehaviour, IDamageable
    [Header("Flash")]
    public List<FlashColor> flashColors;
 
+   [Header("Life")]
+   public HealthBase healthBase;
+   public UIFillUpdater uiFillUpdater;
+
+   private bool _alive = true;
+
+   private void OnValidate()
+   {
+	   if (healthBase == null) healthBase = GetComponent<HealthBase>();
+   }
+
+   private void Awake()
+   {
+	   OnValidate();
+
+	   healthBase.OnDamage += Damage;
+	   healthBase.OnKill += OnKill;
+   }
+
+
    #region LIFE
-   public void Damage(float damage)
+   private void OnKill(HealthBase h)
+   {
+	   if(_alive)
+	   {
+		   _alive = false;
+		   animator.SetTrigger("Death");
+		   colliders.ForEach(i => i.enabled = false);
+
+		   Invoke(nameof(Revive), 3f);
+	   }
+   }
+
+   private void Revive()
+   {
+	   _alive = false;
+	   healthBase.ResetLife();
+	   animator.SetTrigger("Revive");
+	   Respawn();
+	   Invoke(nameof(TurnOnColliders), 1f);
+   }
+
+   private void TurnOnColliders()
+   {
+	   colliders.ForEach(i => i.enabled = true);
+   }
+
+   public void Damage(HealthBase h)
    {
 	   flashColors.ForEach(i => i.Flash());
    }
 
    public void Damage(float damage, Vector3 dir)
    {
-	   Damage(damage);
+	   //Damage(damage);
    }
    #endregion 
 
@@ -54,7 +101,6 @@ public class Player : MonoBehaviour, IDamageable
 	   vSpeed -= gravity * Time.deltaTime;
 	   speedVector.y = vSpeed;
 
-
 	   var isWalking = inputAxisVertical != 0;
 	   if (isWalking)
 	   {
@@ -71,6 +117,15 @@ public class Player : MonoBehaviour, IDamageable
 
 	   characterController.Move(speedVector * Time.deltaTime);
 
-	   animator.SetBool("Run", inputAxisVertical != 0);
+	   animator.SetBool("Run", isWalking);
+   }
+
+   [NaughtyAttributes.Button]
+   public void Respawn()
+   {
+	   if(CheckpointManager.Instance.HasCheckpoint())
+	   {
+		   transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
+	   }
    }
 }
