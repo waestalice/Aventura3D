@@ -81,7 +81,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4795387900836689459}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -132,6 +132,7 @@ MonoBehaviour:
   positionToShoot: {fileID: 643433938391494421}
   timeBetweenShoot: 0.3
   speed: 50
+  uIFillUpdaters: []
   maxShoot: 5
   timeToRecharge: 1
   amountPerShoot: 4
