@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EBAC.Core.Singleton;
 
-public class Player : MonoBehaviour//, IDamageable
+public class Player : Singleton<Player>//, IDamageable
 {
    public List<Collider> colliders;
    public Animator animator; 	
@@ -35,14 +36,13 @@ public class Player : MonoBehaviour//, IDamageable
 	   if (healthBase == null) healthBase = GetComponent<HealthBase>();
    }
 
-   private void Awake()
+   private void Start()
    {
 	   OnValidate();
 
 	   healthBase.OnDamage += Damage;
 	   healthBase.OnKill += OnKill;
    }
-
 
    #region LIFE
    private void OnKill(HealthBase h)
