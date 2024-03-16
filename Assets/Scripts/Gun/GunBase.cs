@@ -23,12 +23,25 @@ public class GunBase : MonoBehaviour
 
    public virtual void Shoot()
    {
+	   if (prefabProjectile == null)
+	   {
+		   Debug.LogError("Prefab Projectile não atribuído em GunBase.");
+		   return;
+	   }
+
+	   if (positionToShoot == null)
+	   {
+		   Debug.LogError("Position to Shoot não atribuído em GunBase.");
+		   return;
+	   }
+
+
 	   var projectile = Instantiate(prefabProjectile);
 	   projectile.transform.position = positionToShoot.position;
 	   projectile.transform.rotation = positionToShoot.rotation;
 	   projectile.speed = speed;
 
-	   ShakeCamera.Instance.Shake();
+	   //ShakeCamera.Instance.Shake();
    }
 
    public void StartShoot()

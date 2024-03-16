@@ -25,6 +25,17 @@ public class DestructableItemBase : MonoBehaviour
         healthBase.OnDamage += OnDamage;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collision detected!");
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Bullet"))
+        {
+            Debug.Log("Player or Bullet collided with the tree!");
+            transform.DOShakeScale(shakeDuration, Vector3.up / 2, shakeForce);
+            DropGroupOfCoins();
+        }
+    }
+
     private void OnDamage(HealthBase h)
     {
         transform.DOShakeScale(shakeDuration, Vector3.up/2, shakeForce);
