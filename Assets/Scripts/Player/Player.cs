@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EBAC.Core.Singleton;
 using Cloth;
-
+	
 public class Player : Singleton<Player>//, IDamageable
 {
    public List<Collider> colliders;
@@ -34,6 +34,7 @@ public class Player : Singleton<Player>//, IDamageable
    [SerializeField] private ClothChanger _clothChanger;
 
    private bool _alive = true;
+   private bool _jumping = false;
 
    private void OnValidate()
    {
@@ -95,12 +96,25 @@ public class Player : Singleton<Player>//, IDamageable
 	   var inputAxisVertical = Input.GetAxis("Vertical");
 	   var speedVector = transform.forward * inputAxisVertical * speed;
 
-	   if (characterController.isGrounded)
+	   if(characterController.isGrounded)
 	   {
+		   if(_jumping)
+		   {
+			   _jumping = false;
+
+			   animator.SetTrigger("Land");
+		   }
+
 		   vSpeed = 0;
-		   if (Input.GetKeyDown(jumpKeyCode))
+		   if (Input.GetKeyDown(KeyCode.Space))
 		   {
 			   vSpeed = jumpSpeed;
+
+			   if(!_jumping)
+			   {
+				    _jumping = true;
+					animator.SetTrigger("Jump");
+			   }
 		   }
 	   }
 
