@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckpointBase : MonoBehaviour
 {
+	public SFXType sfxType;
 	public MeshRenderer meshRenderer;
 	public int key = 01;
 
@@ -11,6 +12,9 @@ public class CheckpointBase : MonoBehaviour
 	private string checkpointKey = "checkpointKey";
 
 	private CheckpointUI checkpointUI;
+
+	[Header("Sounds")]
+    public AudioSource audioSource;
 
 	private void Start()
 	{
@@ -25,8 +29,14 @@ public class CheckpointBase : MonoBehaviour
 		}
 	}
 
+	private void PlaySFX()
+    {
+         SFXPool.Instance.Play(sfxType);
+    }
+
 	private void CheckCheckpoint()
 	{
+		PlaySFX();
 		TurnItOn();
 		SaveCheckpoint();
 
