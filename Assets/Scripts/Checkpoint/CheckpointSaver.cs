@@ -35,7 +35,7 @@ public class CheckpointSaver : MonoBehaviour
 		{
 			i.SetActive(true);
 			i.transform.DOScale(0, .2f).SetEase(Ease.OutBack).From();
-			SaveManager.Instance.SaveCheckpointProgress(checkpointNumber);
+			SaveManager.Instance.SaveCheckpointProgress(checkpointNumber);	
 		}
 	}
 }

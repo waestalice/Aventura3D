@@ -6,6 +6,7 @@ namespace Items
 {
     public class ItemCollectableBase : MonoBehaviour
     {
+        public SFXType sfxType;
         public ItemType itemType;
 
         public string compareTag = "Player";
@@ -13,7 +14,7 @@ namespace Items
         public float timeToHide = 3;
         public GameObject graphicItem;
 
-        public Collider collider;
+        public Collider[] colliders;
 
         [Header("Sounds")]
         public AudioSource audioSource;
@@ -21,6 +22,7 @@ namespace Items
         private void Awake()
         {
             //if (particleSystem != null) particleSystem.transform.SetParent(null);
+            colliders = GetComponents<Collider>();
         }
 
         private void OnTriggerEnter(Collider collision)
@@ -31,9 +33,21 @@ namespace Items
             }
         }
 
+        private void PlaySFX()
+        {
+            SFXPool.Instance.Play(sfxType);
+        }
+
         protected virtual void Collect()
         {
-            if (collider != null) collider.enabled = false;
+            PlaySFX();
+            if (GetComponent<Collider>() != null)
+            {
+                for (int i = 0; i < colliders.Length; ++i)
+                {
+                    colliders[i].enabled = false;
+                }
+            }
             if (graphicItem != null) graphicItem.SetActive(false);
             Invoke("HideObject", timeToHide);
             OnCollect();
