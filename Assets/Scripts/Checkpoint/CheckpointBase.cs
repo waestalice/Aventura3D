@@ -44,7 +44,7 @@ public class CheckpointBase : MonoBehaviour
 	}
 
 	[NaughtyAttributes.Button]
-	private void TurnItOn()
+	public void TurnItOn()
 	{
 		meshRenderer.material.SetColor("_EmissionColor", Color.white);
 	}

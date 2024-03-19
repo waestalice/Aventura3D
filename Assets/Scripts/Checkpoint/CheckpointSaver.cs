@@ -9,7 +9,7 @@ public class CheckpointSaver : MonoBehaviour
 
 	private bool _checkPoint = false;
 
-	public int checkpointNumber = 1;
+	public int checkpointNumber = -1;
 
 	private void Awake()
 	{
@@ -28,6 +28,12 @@ public class CheckpointSaver : MonoBehaviour
 
 	private void ShowCheckpointSaver()
 	{
+		CheckAsSaved();
+		SaveManager.Instance.SaveCheckpointProgress(checkpointNumber);
+	}
+
+	public void CheckAsSaved()
+	{
 		_checkPoint = true;
 		checkpointGameObjects.ForEach(i => i.SetActive(true));
 
@@ -35,7 +41,6 @@ public class CheckpointSaver : MonoBehaviour
 		{
 			i.SetActive(true);
 			i.transform.DOScale(0, .2f).SetEase(Ease.OutBack).From();
-			SaveManager.Instance.SaveCheckpointProgress(checkpointNumber);	
 		}
-	}
+    }
 }
